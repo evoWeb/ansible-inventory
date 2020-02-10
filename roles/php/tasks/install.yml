@@ -1,0 +1,57 @@
+- name: Installs the ppa:ondrej/php repo on Ubuntu systems
+  apt_repository:
+    repo: ppa:ondrej/php
+
+- name: Install some required apt packages for the ondrej repo
+  apt:
+    pkg:
+      - apt-transport-https
+      - ca-certificates
+      - lsb-release
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Install some useful extra packages
+  apt:
+    pkg:
+      - graphicsmagick
+      - catdoc
+      - exiftags
+      - libimage-exiftool-perl
+      # replaces xpdf-utils
+      - poppler-utils
+      - curl
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+
+- name: Ensure php fpm is installed
+  apt:
+    pkg: "{{ item.value.install.packages }}"
+  with_dict: "{{ php }}"
+
+- name: Ensure fpm config is present
+  copy:
+    dest: "/etc/php/{{ item.value.install.version }}/fpm/conf.d/50-custom.ini"
+    content: "{{ item.value.config }}"
+  with_dict: "{{ php }}"
+
+- name: Download Composer
+  script: files/install_composer.sh
+  args:
+    creates: /usr/local/bin/composer
+  register: downloadcomposer
+
+- name: Move Composer globally
+  become: true
+  command: mv composer.phar /usr/local/bin/composer
+  when: downloadcomposer.changed
+
+- name: Set permissions on Composer
+  become: true
+  file:
+    path: /usr/local/bin/composer
+    mode: "a+x"
+  when: downloadcomposer.changed

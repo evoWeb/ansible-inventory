@@ -1,0 +1,31 @@
+- name: Ensure apache2 is installed
+  apt:
+    name: apache2
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Enable rewrite module
+  apache2_module:
+    state: present
+    name: rewrite
+
+- name: Enable ssl module
+  apache2_module:
+    state: present
+    name: ssl
+
+- name: Enable headers module
+  apache2_module:
+    state: present
+    name: headers
+
+- name: Enable expires module
+  apache2_module:
+    state: present
+    name: expires
+
+- name: Enable proxy_fcgi module
+  apache2_module:
+    state: present
+    name: proxy_fcgi

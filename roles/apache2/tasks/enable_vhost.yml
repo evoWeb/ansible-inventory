@@ -1,0 +1,68 @@
+- set_fact:
+    site_config: "{{ vhost_default|combine(site.value, recursive=True) }}"
+    site_name: "{{ site.key }}"
+
+- name: "Create folder for project {{ site_name }}"
+  file:
+    path: "{{ site_config.vhost_ssl.document_root }}public/"
+    owner: "{{ username }}"
+    group: www-data
+    mode: "2775"
+    state: directory
+
+- stat:
+    path: "{{ site_config.vhost_ssl.document_root }}htdocs/"
+  register: symlink
+
+- name: "Create symlink for {{ site_name }}"
+  #file:
+  #  src: "public"
+  #  dest: "{{ site_config.vhost_ssl.document_root }}"
+  #  follow: no
+  #  force: yes
+  #  state: link
+  #  group: www-data
+  #  mode: "2775"
+  shell: ln -s public htdocs
+  args:
+    chdir: "{{ site_config.vhost_ssl.document_root }}"
+    warn: no
+  when: symlink.stat.islnk is not defined
+
+- name: "Create {{ site_name }} vhost config"
+  template:
+    src: vhost_redirect.conf
+    dest: "/etc/apache2/sites-available/{{ site_config.server_name }}.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  vars:
+    - vhost: "{{ site_config.vhost }}"
+  register: vhostconfig
+
+- name: "Enable {{ site_name }} vhost"
+  command: "a2ensite {{ site_config.server_name }}"
+  when: vhostconfig.changed
+  notify: Restart apache2 services
+
+- name: "Create {{ site_name }}-ssl vhost config"
+  template:
+    src: vhost_directory.conf
+    dest: "/etc/apache2/sites-available/{{ site_config.server_name }}-ssl.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  vars:
+    - vhost: "{{ site_config.vhost_ssl }}"
+  register: vhostsslconfig
+
+- name: "Enable {{ site_name }}-ssl vhost"
+  command: "a2ensite {{ site_config.server_name }}-ssl"
+  when: vhostsslconfig.changed
+  notify: Restart apache2 services
+
+- name: Ensure server_name is present in hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: "{{ site_config.server_name }}"
+    line: "127.0.0.1 www.{{ site_config.server_name }}"

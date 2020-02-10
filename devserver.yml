@@ -1,0 +1,13 @@
+---
+- hosts: devserver
+  connection: local
+  gather_facts: false
+
+  roles:
+    - mkcert
+    - nfs-server
+    - dbeaver
+    - remmina
+    - docker
+    - openssh
+    - nodejs

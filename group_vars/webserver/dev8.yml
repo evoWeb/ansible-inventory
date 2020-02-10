@@ -1,0 +1,12 @@
+sites:
+  dev8:
+    enable: true
+    pool:
+      version: php7.2
+
+    dbname: dev8
+
+    server_name: dev8.dev.local
+
+    vhost_ssl:
+      document_root: /home/www/dev8/www/

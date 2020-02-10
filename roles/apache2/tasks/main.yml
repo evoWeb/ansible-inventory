@@ -1,0 +1,24 @@
+- name: Install apache2 and activate modules
+  include_tasks: install.yml
+
+- name: "Create certs with user {{ username }}"
+  include_tasks: create_cert.yml
+  with_dict: "{{ sites }}"
+  loop_control:
+    loop_var: site
+  when: site.value.enable == true
+  tags: certificate
+
+- name: Enable vhost task
+  include_tasks: enable_vhost.yml
+  with_dict: "{{ sites }}"
+  loop_control:
+    loop_var: site
+  when: site.value.enable == true
+
+- name: Disable vhost task
+  include_tasks: disable_vhost.yml
+  with_dict: "{{ sites }}"
+  loop_control:
+    loop_var: site
+  when: site.value.enable == false

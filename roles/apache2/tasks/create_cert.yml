@@ -1,0 +1,12 @@
+- set_fact:
+    site_config: "{{ vhost_default|combine(site.value, recursive=True) }}"
+  tags: certificate
+
+- name: "Create ssl certificate for {{ site.key }}"
+  command: "./mkcert {{ 'www.{0} {0}'.format(site_config.server_name) }}"
+  become: yes
+  become_user: "{{ username }}"
+  args:
+    chdir: /home/www/mkcert/
+    creates: "{{ '/home/www/mkcert/www.{0}+1.pem'.format(site_config.server_name) }}"
+  tags: certificate

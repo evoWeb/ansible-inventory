@@ -1,0 +1,9 @@
+---
+- hosts: webserver
+  connection: local
+  gather_facts: false
+
+  roles:
+    - apache2
+    - php
+    - mariadb

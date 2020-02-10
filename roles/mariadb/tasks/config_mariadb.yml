@@ -1,0 +1,28 @@
+- name: Create mysql directory if it does not exist
+  file:
+    path: /home/mysql
+    state: directory
+    owner: mysql
+    group: mysql
+    mode: "0755"
+
+- name: Move mysql folder
+  command: "mv /var/lib/mysql/* /home/mysql/"
+  args:
+    creates: /home/mysql/ibdata1
+  register: copymysqlfolder
+
+- name: Copy mysqld config file
+  copy:
+    src: 60-mysqld_extra.cnf
+    dest: /etc/mysql/mariadb.conf.d/60-mysqld_extra.cnf
+    owner: root
+    group: root
+    mode: "0644"
+  register: copymysqlconfig
+
+- name: Restart mysql
+  service:
+    name: mysql
+    state: restarted
+  when: copymysqlfolder.changed or copymysqlconfig.changed

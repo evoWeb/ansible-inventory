@@ -1,0 +1,14 @@
+- name: Install layer2 tunnel protocol packages
+  apt:
+    pkg:
+      - network-manager-l2tp
+      - network-manager-l2tp-gnome
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Stop and disable xl2tpd
+  service:
+    name: xl2tpd
+    state: stopped
+    enabled: no

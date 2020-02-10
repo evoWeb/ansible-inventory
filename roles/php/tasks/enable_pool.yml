@@ -1,0 +1,14 @@
+- set_fact:
+    site_config: "{{ pool_default|combine(site.value, recursive=True) }}"
+    site_name: "{{ site.key }}"
+
+- name: "Create {{ site_name }} fpm pool"
+  template:
+    src: pool.conf
+    dest: "{{ local_php.install.pool_folder }}/{{ site_name }}.conf"
+    owner: root
+    group: root
+    mode: "0644"
+  vars:
+    local_php: "{{ php[site_config.pool.version] }}"
+  notify: Restart php fpm services

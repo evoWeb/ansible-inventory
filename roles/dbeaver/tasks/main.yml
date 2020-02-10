@@ -1,0 +1,10 @@
+- name: Ensure dbeaver ppa is present
+  apt_repository:
+    repo: ppa:serge-rider/dbeaver-ce
+
+- name: install dbeaver
+  apt:
+    name: dbeaver-ce
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest

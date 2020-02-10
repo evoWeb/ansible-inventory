@@ -1,0 +1,33 @@
+---
+- hosts: workstation
+  connection: local
+  gather_facts: true
+
+  roles:
+    - ubuntu
+    - curl
+    - vim
+    - git
+    - zsh
+    - dotfiles
+    - google-chrome
+    - libreoffice
+    - nfs-client
+    - notable
+    - thunderbird
+    - nextcloud-client
+
+  #tasks:
+    #- include_tasks: ../tasks/install/shutter.yml
+    #- include_tasks: ../tasks/install/filezilla.yml
+    #- include_tasks: ../tasks/install/mailcatcher.yml
+  #dnsmaq
+  #virtualbox
+    #- install.cifs
+    #- install.dnsmasq
+    #- install.gimp
+    #- install.gnupg
+    #- install.gparted
+    #- install.caffeine
+    #- install.skype
+    #- install.vlc

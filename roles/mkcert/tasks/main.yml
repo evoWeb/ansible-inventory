@@ -1,0 +1,26 @@
+- name: install mkcert
+  apt:
+    name: libnss3-tools
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Create folder if not exists
+  file:
+    path: /home/www/mkcert/
+    state: directory
+
+- name: Copy mkcert binary
+  copy:
+    src: mkcert-v1.4.1-linux-amd64
+    dest: /home/www/mkcert/
+    owner: "{{ username }}"
+    mode: "0775"
+
+- name: Create general symlink
+  file:
+    src: "/home/www/mkcert/mkcert-v1.4.1-linux-amd64"
+    dest: "/home/www/mkcert/mkcert"
+    owner: "{{ username }}"
+    state: link
+    force: true

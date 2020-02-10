@@ -1,0 +1,38 @@
+- name: Ensure nfs server is installed.
+  apt:
+    name: nfs-kernel-server
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Ensure directories to export exist
+  file:
+    path: "{{ item[0] }}"
+    state: directory
+  with_items:
+    - "{{ nfs_exports }}"
+
+- name: Copy idmapd file.
+  copy:
+    src: idmapd.conf
+    dest: /etc/idmapd.conf
+    owner: root
+    group: root
+    mode: "0644"
+  notify: reload nfs
+
+- name: Copy exports file.
+  template:
+    src: exports.j2
+    dest: /etc/exports
+    owner: root
+    group: root
+    mode: "0644"
+  notify: reload nfs
+
+- name: Ensure nfs is running.
+  service:
+    name: nfs-kernel-server
+    state: started
+    enabled: yes
+  when: nfs_exports|length

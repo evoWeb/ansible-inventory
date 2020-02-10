@@ -1,0 +1,45 @@
+- set_fact:
+    site_config: "{{ vhost_default|combine(site.value, recursive=True) }}"
+    site_name: "{{ site.key }}"
+
+- name: "Check that the {{ site_name }} conf exists"
+  stat:
+    path: "/etc/apache2/sites-available/{{ site_config.server_name }}.conf"
+  register: stat_result
+
+- name: "Disable {{ site_name }} site"
+  command: "a2dissite {{ site_config.server_name }}"
+  args:
+    removes: "/etc/apache2/sites-available/{{ site_config.server_name }}.conf"
+  when: stat_result.stat.exists == true
+  notify: Restart apache2 services
+
+- name: "Remove {{ site_name }} config"
+  file:
+    path: "/etc/apache2/sites-available/{{ site_config.server_name }}.conf"
+    state: absent
+  when: stat_result.stat.exists == true
+
+- name: "Check that the {{ site_name }}-ssl conf exists"
+  stat:
+    path: "/etc/apache2/sites-available/{{ site_config.server_name }}-ssl.conf"
+  register: ssl_stat_result
+
+- name: "Disable {{ site_name }}-ssl site"
+  command: "a2dissite {{ site_config.server_name }}-ssl"
+  args:
+    removes: "/etc/apache2/sites-available/{{ site_config.server_name }}-ssl.conf"
+  when: ssl_stat_result.stat.exists == true
+  notify: Restart apache2 services
+
+- name: "Remove {{ site_name }}-ssl config"
+  file:
+    path: "/etc/apache2/sites-available/{{ site_config.server_name }}-ssl.conf"
+    state: absent
+  when: ssl_stat_result.stat.exists == true
+
+- name: Ensure server_name is not present in hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: "{{ site_config.server_name }}"
+    state: absent

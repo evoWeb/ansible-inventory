@@ -1,0 +1,15 @@
+- include_tasks: install.yml
+
+- name: Enable fpm pool task
+  include_tasks: enable_pool.yml
+  with_dict: "{{ sites }}"
+  loop_control:
+    loop_var: site
+  when: site.value.enable == true
+
+- name: Disable fpm pool task
+  include_tasks: disable_pool.yml
+  with_dict: "{{ sites }}"
+  loop_control:
+    loop_var: site
+  when: site.value.enable == false

@@ -1,0 +1,12 @@
+sites:
+  dev9:
+    enable: true
+    pool:
+      version: php7.2
+
+    dbname: dev9
+
+    server_name: dev9.dev.local
+
+    vhost_ssl:
+      document_root: /home/www/dev9/www/

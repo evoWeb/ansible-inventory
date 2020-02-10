@@ -1,0 +1,9 @@
+- name: Install mailcatcher
+  docker_compose:
+    definition:
+      mailcatcher:
+        container_name: mailcatcher
+        image: jeanberu/mailcatcher
+        ports:
+          - "1080:1080"
+          - "1025:1025"

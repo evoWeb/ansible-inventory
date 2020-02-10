@@ -1,0 +1,8 @@
+---
+- hosts: laptop
+  connection: local
+  gather_facts: false
+
+  roles:
+    - hibernate
+    - layer2-tunnel

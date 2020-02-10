@@ -1,0 +1,6 @@
+- name: Ensure openssh client is installed.
+  apt:
+    name: openssh-server
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest

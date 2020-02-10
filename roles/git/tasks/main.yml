@@ -1,0 +1,13 @@
+- name: install git
+  apt:
+    name: git
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: install git-flow
+  apt:
+    name: git-flow
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest

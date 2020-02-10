@@ -1,0 +1,10 @@
+- name: Check if notable is installed
+  command: dpkg-query -W notable
+  register: notableinstalled
+  failed_when: notableinstalled.rc > 1
+  changed_when: notableinstalled.rc == 1
+
+- name: Install notable
+  apt:
+    deb: https://download.notable.md/?target=deb
+  when: notableinstalled.rc == 1

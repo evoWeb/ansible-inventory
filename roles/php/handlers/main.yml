@@ -1,0 +1,5 @@
+- name: Restart php fpm services
+  service:
+    name: "{{ item.key }}-fpm.service"
+    state: restarted
+  with_dict: "{{ php }}"

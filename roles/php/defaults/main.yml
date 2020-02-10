@@ -1,0 +1,25 @@
+pool_default:
+  pool:
+    version:
+    user: www-data
+    group: www-data
+    mode: "0660"
+
+    pm: dynamic
+    pm.max_children: 5
+    pm.start_servers: 2
+    pm.min_spare_servers: 1
+    pm.max_spare_servers: 3
+
+    admin_values:
+      max_input_vars: 1500
+      max_execution_time: 240
+    values:
+      always_populate_raw_post_data: -1
+      max_execution_time: 240
+      memory_limit: 512M
+      upload_max_filesize: 10M
+      post_max_size: 10M
+    flags:
+      display_errors: on
+      log_errors: on

@@ -1,0 +1,13 @@
+- name: Ensure Remmina ppa is present
+  apt_repository:
+    repo: ppa:remmina-ppa-team/remmina-next
+
+- name: Install Remmina
+  apt:
+    pkg:
+      - remmina
+      - remmina-plugin-rdp
+      - remmina-plugin-secret
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest

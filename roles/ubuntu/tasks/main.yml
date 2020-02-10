@@ -1,0 +1,34 @@
+- name: remove ubuntu one packages
+  apt:
+    pkg:
+      - ubuntuone-client
+      - ubuntuone-client-gnome
+      - ubuntuone-control-panel
+      - ubuntuone-control-panel-gtk
+    state: absent
+
+- name: Disable search lenses
+  gsettings:
+    path: com.canonical.Unity.Lenses
+    key: remote-content-search
+    value: "'none'"
+
+- name: Disable suggestions lenses
+  gsettings:
+    path: com.canonical.Unity.Lenses
+    key: disabled-scopes
+    value: "['more_suggestions-amazon.scope', 'more_suggestions-u1ms.scope', 'more_suggestions-populartracks.scope', 'music-musicstore.scope', 'more_suggestions-ebay.scope', 'more_suggestions-ubuntushop.scope', 'more_suggestions-skimlinks.scope']"
+
+- name: Ensure productionsearch is present in hosts
+  lineinfile:
+    path: /etc/hosts
+    regexp: 'productsearch\.ubuntu'
+    line: 127.0.0.1 productsearch.ubuntu.com
+
+- name: Ensure increse inotify file is present
+  copy:
+    src: 50-fs-inotify.conf
+    dest: /etc/sysctl.d/50-fs-inotify.conf
+    owner: root
+    group: root
+    mode: "0644"

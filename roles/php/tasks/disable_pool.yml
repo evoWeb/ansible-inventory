@@ -1,0 +1,15 @@
+- set_fact:
+    site_config: "{{ pool_default|combine(site.value, recursive=True) }}"
+    site_name: "{{ site.key }}"
+    local_php: "{{ php[site_config.pool.version] }}"
+
+- name: "Check that the {{ site_name }} pool exists"
+  stat:
+    path: "{{ local_php.install.pool_folder }}/{{ site_name }}.conf"
+  register: stat_result
+
+- name: "Remove {{ site_name }} fpm pool"
+  file:
+    path: "{{ local_php.install.pool_folder }}/{{ site_name }}.conf"
+    state: absent
+  notify: Restart php fpm services

@@ -1,0 +1,21 @@
+- name: nodejs - add repository key
+  apt_key:
+    url: "http://deb.nodesource.com/gpgkey/nodesource.gpg.key"
+
+- name: nodejs - add repository
+  apt_repository:
+    repo: "{{ item }}"
+    state: present
+    update_cache: yes
+  with_items:
+    - "deb http://deb.nodesource.com/node_13.x {{ ansible_distribution_release }} main"
+    - "deb-src http://deb.nodesource.com/node_13.x {{ ansible_distribution_release }} main"
+
+- name: nodejs - install package
+  apt:
+    pkg:
+      - nodejs
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+

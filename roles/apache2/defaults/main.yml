@@ -1,0 +1,28 @@
+vhost_default:
+  vhost:
+    server_name:
+
+    redirect_source: ^/?(.*)
+    redirect_target: https://%{SERVER_NAME}/$1
+
+  vhost_ssl:
+    server_name:
+
+    log_level: warn
+    log_folder: ${APACHE_LOG_DIR}
+    error_log:
+    custom_log:
+
+    document_root:
+
+    directory:
+    directory_options:
+      Options: FollowSymLinks MultiViews
+      Order: allow,deny
+      Allow: from all
+      AllowOverride: All
+      Require:
+
+    formula_append:
+
+    typo3_context: Development

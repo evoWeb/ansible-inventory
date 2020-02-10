@@ -1,0 +1,11 @@
+- set_fact:
+    site_config: "{{ vhost_default|combine(site.value, recursive=True) }}"
+    site_name: "{{ site.key }}"
+  tags: db
+
+- name: "Create mysql table for {{ site_name }}"
+  mysql_db:
+    name: "{{ site_config.dbname }}"
+    state: present
+  when: site_config.dbname != ""
+  tags: db

@@ -1,0 +1,8 @@
+sites:
+  default:
+    enable: false
+
+    server_name: 000-default
+
+    vhost_ssl:
+      document_root: /var/www/html/

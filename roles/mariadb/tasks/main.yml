@@ -1,0 +1,23 @@
+- name: Ensure mysql server is installed
+  apt:
+    pkg:
+      - mariadb-server-10.3
+      - mariadb-client-10.3
+      - python3-pymysql
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Include app armor config
+  include_tasks: config_apparmor.yml
+
+- name: Configure mariadb service
+  include_tasks: config_mariadb.yml
+
+- name: Create mysql database
+  include_tasks: create_database.yml
+  with_dict: "{{ sites }}"
+  loop_control:
+    loop_var: site
+  when: site.value.enable == true
+  tags: db
