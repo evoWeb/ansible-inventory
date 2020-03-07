@@ -1,8 +1,9 @@
-- name: Ensure mysql server is installed
+- name: Ensure mariadb server is installed
   apt:
     pkg:
       - mariadb-server-10.3
       - mariadb-client-10.3
+      - python3-mysqldb
       - python3-pymysql
     update_cache: yes
     cache_valid_time: 86400
