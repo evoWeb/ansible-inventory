@@ -91,3 +91,36 @@ php:
       xdebug.max_nesting_level = 400
       xdebug.remote_connect_back = 1
       xdebug.remote_enable = 1
+
+
+  php7.4:
+    install:
+      version: 7.4
+      pool_folder: /etc/php/7.4/fpm/pool.d
+      packages:
+        - php7.4
+        - php7.4-fpm
+        - php7.4-bcmath
+        - php7.4-bz2
+        - php7.4-cli
+        - php7.4-common
+        - php7.4-curl
+        - php7.4-dev
+        - php7.4-gd
+        - php7.4-json
+        - php7.4-mbstring
+        #- php7.4-mcrypt
+        - php7.4-mysql
+        - php7.4-sqlite3
+        - php7.4-soap
+        - php7.4-xml
+        - php7.4-intl
+        - php7.4-zip
+        - php-apcu
+        - php-xdebug
+    config: |
+      [debug]
+      xdebug.idekey = PHPSTORM
+      xdebug.max_nesting_level = 400
+      xdebug.remote_connect_back = 1
+      xdebug.remote_enable = 1

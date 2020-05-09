@@ -10,3 +10,5 @@ sites:
 
     vhost_ssl:
       document_root: /home/www/dev10/www/
+
+      additional_config_file: ../../../AdditionalConfiguration.php
