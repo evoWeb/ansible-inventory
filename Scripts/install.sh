@@ -1,7 +1,7 @@
 #!/bin/bash -e
 # Partitions
-# 230M efi /boot/efi
-# Swap same size as Arbeitsspeicher
+# 1024M efi /boot/efi
+# 16G Swap same size as Arbeitsspeicher
 # 50G ext4 /
 # Rest ext4 /home
 
@@ -104,7 +104,7 @@ function runPlaybook () {
 function main () {
 	prepareHostname
 	prepareGitConfiguration
-	prepareAnsibleRepository
+	#prepareAnsibleRepository
 	installAnsible
 	checkoutRepositories
 	runPlaybook

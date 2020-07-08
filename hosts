@@ -1,15 +1,18 @@
 [workstation]
 kalium
+kalium2
 cesium
 martin-ThinkPad-T490
 
 [devserver]
 kalium
+kalium2
 cesium
 martin-ThinkPad-T490
 
 [webserver]
 kalium
+kalium2
 cesium
 martin-ThinkPad-T490
 
