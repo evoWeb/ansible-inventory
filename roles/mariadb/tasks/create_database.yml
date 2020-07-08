@@ -1,3 +1,5 @@
+# https://www.digitalocean.com/community/tutorials/how-to-reset-your-mysql-or-mariadb-root-password-on-ubuntu-18-04
+
 - set_fact:
     site_config: "{{ vhost_default|combine(site.value, recursive=True) }}"
     site_name: "{{ site.key }}"
