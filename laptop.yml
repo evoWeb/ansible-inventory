@@ -4,5 +4,5 @@
   gather_facts: false
 
   roles:
-    - hibernate
+    - hibernation
     - layer2-tunnel

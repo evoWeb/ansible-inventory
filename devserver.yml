@@ -6,7 +6,7 @@
   roles:
     - mkcert
     - nfs-server
-    - dbeaver
+    #- dbeaver
     - remmina
     - docker
     - openssh

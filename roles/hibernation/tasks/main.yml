@@ -1,0 +1,25 @@
+- name: Unmask targets
+  command: "systemctl unmask sleep.target suspend.target hibernate.target hybrid-sleep.target"
+
+- name: Do not suspend if lid is closed if powered external
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "#HandleLidSwitchExternalPower=suspend"
+    line: "HandleLidSwitchExternalPower=lock"
+
+- name: Do not suspend if lid is closed if docked
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "#HandleLidSwitchExternalPower=suspend"
+    line: "HandleLidSwitchExternalPower=lock"
+
+- name: Set to suspend if power button is pressed
+  lineinfile:
+    path: /etc/systemd/logind.conf
+    regexp: "#HandlePowerKey=poweroff"
+    line: "HandlePowerKey=suspend"
+
+- name: Restart systemd-logind
+  service:
+    name: systemd-logind
+    state: restarted
