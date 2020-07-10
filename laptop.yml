@@ -6,3 +6,4 @@
   roles:
     - hibernate
     - layer2-tunnel
+    - vpn

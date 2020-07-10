@@ -1,0 +1,14 @@
+- name: Install l2tp Client
+  apt:
+    pkg:
+      - network-manager-l2tp
+      - network-manager-l2tp-gnome
+    update_cache: yes
+    cache_valid_time: 86400
+    state: latest
+
+- name: Stop service xl2tpd, if started
+  service:
+    name: xl2tpd
+    state: stopped
+    enabled: no
