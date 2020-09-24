@@ -1,0 +1,6 @@
+- name: Install gnome shell tools
+  apt:
+    pkg:
+      - gnome-tweaks
+      - gnome-shell-extensions
+    state: present

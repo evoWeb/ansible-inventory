@@ -1,5 +1,7 @@
 #!/bin/bash -e
 
+tags=''
+
 if [[ $(id -u) -ne 0 ]]; then
 	echo 'Script can only be run as root'
 	exit 1
@@ -22,7 +24,8 @@ done
 readonly BASE_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/.." > /dev/null 2>&1 && pwd )"
 
 function runPlaybook () {
-	local host=$(uname -n)
+	local host
+	host="$(uname -n)"
 
 	cd "${BASE_DIR}"
 	ansible-playbook -c "local" -i "${BASE_DIR}/hosts" -l "${host}" "${BASE_DIR}/site.yml" -e "username=$(logname)" ${tags}

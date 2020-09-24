@@ -28,6 +28,38 @@ php:
       xdebug.remote_connect_back = 1
       xdebug.remote_enable = 1
 
+  php7.1:
+    install:
+      version: 7.1
+      pool_folder: /etc/php/7.1/fpm/pool.d
+      packages:
+        - php7.1
+        - php7.1-fpm
+        - php7.1-bcmath
+        - php7.1-bz2
+        - php7.1-cli
+        - php7.1-common
+        - php7.1-curl
+        - php7.1-dev
+        - php7.1-gd
+        - php7.1-json
+        - php7.1-mbstring
+        - php7.1-mcrypt
+        - php7.1-mysql
+        - php7.1-sqlite3
+        - php7.1-soap
+        - php7.1-xml
+        - php7.1-zip
+        - php7.1-intl
+        - php-apcu
+        - php-xdebug
+    config: |
+      [debug]
+      xdebug.idekey = PHPSTORM
+      xdebug.max_nesting_level = 400
+      xdebug.remote_connect_back = 1
+      xdebug.remote_enable = 1
+
   php7.2:
     install:
       version: 7.2
@@ -83,6 +115,38 @@ php:
         - php7.3-xml
         - php7.3-intl
         - php7.3-zip
+        - php-apcu
+        - php-xdebug
+    config: |
+      [debug]
+      xdebug.idekey = PHPSTORM
+      xdebug.max_nesting_level = 400
+      xdebug.remote_connect_back = 1
+      xdebug.remote_enable = 1
+
+  php7.4:
+    install:
+      version: 7.4
+      pool_folder: /etc/php/7.4/fpm/pool.d
+      packages:
+        - php7.4
+        - php7.4-fpm
+        - php7.4-bcmath
+        - php7.4-bz2
+        - php7.4-cli
+        - php7.4-common
+        - php7.4-curl
+        - php7.4-dev
+        - php7.4-gd
+        - php7.4-json
+        - php7.4-mbstring
+        #- php7.4-mcrypt
+        - php7.4-mysql
+        - php7.4-sqlite3
+        - php7.4-soap
+        - php7.4-xml
+        - php7.4-intl
+        - php7.4-zip
         - php-apcu
         - php-xdebug
     config: |

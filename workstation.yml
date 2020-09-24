@@ -16,6 +16,7 @@
     - notable
     - thunderbird
     - nextcloud-client
+    - gnome-shell
 
   #tasks:
     #- include_tasks: ../tasks/install/shutter.yml

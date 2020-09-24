@@ -1,14 +1,14 @@
 [workstation]
+cesium
 kalium
-martin-ThinkPad-T490
 
 [devserver]
+cesium
 kalium
-martin-ThinkPad-T490
 
 [webserver]
+cesium
 kalium
-martin-ThinkPad-T490
 
 [laptop]
 kalium
