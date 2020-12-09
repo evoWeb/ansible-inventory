@@ -2,7 +2,7 @@ sites:
   dev10:
     enable: true
     pool:
-      version: php7.2
+      version: php7.4
 
     dbname: dev10
 

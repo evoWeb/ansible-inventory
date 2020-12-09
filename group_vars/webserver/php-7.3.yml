@@ -1,0 +1,32 @@
+php:
+  php7.3:
+    install:
+      version: 7.3
+      pool_folder: /etc/php/7.3/fpm/pool.d
+      packages:
+        - php7.3
+        - php7.3-fpm
+        - php7.3-bcmath
+        - php7.3-bz2
+        - php7.3-cli
+        - php7.3-common
+        - php7.3-curl
+        - php7.3-dev
+        - php7.3-gd
+        - php7.3-json
+        - php7.3-mbstring
+        #- php7.3-mcrypt
+        - php7.3-mysql
+        - php7.3-sqlite3
+        - php7.3-soap
+        - php7.3-xml
+        - php7.3-intl
+        - php7.3-zip
+        - php-apcu
+        - php-xdebug
+    config: |
+      [debug]
+      xdebug.idekey = PHPSTORM
+      xdebug.max_nesting_level = 400
+      xdebug.remote_connect_back = 1
+      xdebug.remote_enable = 1
